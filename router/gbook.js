@@ -13,9 +13,8 @@ const pagerInit = require('../modules/pager-conn');
 // console.log(page, cnt, stRec);
 router.get(['/', '/list', '/list/:page'], async (req, res, next) => {
 	let connect, sql, sqlVal, result, pager;
-
 	try {
-		pager = await pagerInit(req, 'gbook/list','gbook');
+		pager = await pagerInit(req, '/gbook/list', 'gbook');
 		connect = await pool.getConnection();
 		sql = 'SELECT * FROM gbook ORDER BY id DESC LIMIT ?, ?';
 		sqlVal = [pager.stRec, pager.cnt];
@@ -28,7 +27,6 @@ router.get(['/', '/list', '/list/:page'], async (req, res, next) => {
 	catch(e) {
 		next(mysqlErr(e));
 	}
-	
 });
 
 router.post('/save', async (req, res, next) => {
