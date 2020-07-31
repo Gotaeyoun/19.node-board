@@ -1,11 +1,6 @@
-doctype html
-html(lang="ko")
-	head
-		include ../include/head.pug
-		include ../include/masonny.pug
-	body
-		include ../include/header.pug
-		div.wrapper
-			block content
-		include ../include/footer.pug
-		script(src=`/js/${js}.js`)
+extends ../layout/gallery.layout.pug
+block content
+	.title-wrap
+		h1.title= title
+			hr
+			small MYSQL, Nodejs-Express를 사용한 갤러리 입니다.

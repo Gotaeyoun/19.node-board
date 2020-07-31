@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const pug = {headTitle: "Node/Express 갤러리", css: "gallery", js: "gallery"};
 const { pool } = require('../modules/mysql-conn');
-const { upload } = require('../modules/multer-conn');
+const { upload } = require('../modules/multer-con');
 
 router.get(['/', '/list', '/list/:page'], (req, res, next) => {
 	pug.title = '갤러리 리스트'
