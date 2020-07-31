@@ -3,4 +3,12 @@ block content
 	.title-wrap
 		h1.title= title
 			hr
-			small MYSQL, Nodejs-Express를 사용한 갤러리 입니다.
+			small MySQL, Nodejs-Express를 사용한 갤러리 입니다.
+	.list-wrapper
+		.grid-stack
+			each v in lists
+				.grid-stack-item.border(data-gs-width="3" data-gs-height="4")
+					div.p-2
+						img.img.border(src=`${v.src}`)
+	.my-5.text-center
+		button.btn.btn-primary(onclick='location.href="/gallery/wr";') 작성하기

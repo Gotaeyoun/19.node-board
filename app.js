@@ -9,6 +9,7 @@ const navi = require('./modules/navi-conn');
 
 /*************** 절대경로 *****************/
 const publicPath = path.join(__dirname, './public'); // 'c:\...\public'
+const uploadPath = path.join(__dirname, './storage');
 const viewsPath = path.join(__dirname, './views');
 
 /*************** 라우터 *****************/
@@ -36,6 +37,7 @@ app.use(express.urlencoded({extended: false}));
 
 /*************** 라우터 세팅 *****************/
 app.use('/', express.static(publicPath));
+app.use('/upload/', express.static(uploadPath));
 app.use('/gbook', gbookRouter);
 app.use('/gbook/api', gbookRouterApi);
 app.use('/board', boardRouter);
