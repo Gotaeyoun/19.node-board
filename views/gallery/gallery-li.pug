@@ -3,12 +3,21 @@ block content
 	.title-wrap
 		h1.title= title
 			hr
-			small MySQL, Nodejs-Express를 사용한 갤러리 입니다.
+			div.d-flex.justify-content-between
+				small MySQL, Nodejs-Express를 사용한 갤러리 입니다.
+				button.btn.btn-primary(onclick='location.href="/gallery/wr";') 작성하기
+	i.loader.fa.fa-spin.fa-spinner.fa-2x
 	.list-wrapper
-		.grid-stack
-			each v in lists
-				.grid-stack-item.border(data-gs-width="3" data-gs-height="4")
-					div.p-2
-						img.img.border(src=`${v.src}`)
-	.my-5.text-center
-		button.btn.btn-primary(onclick='location.href="/gallery/wr";') 작성하기
+		.list-sizer
+		each v in lists
+			.list
+				img.img.def-img(src=`${v.src}`)
+				img.img.abs-img(src=`${v.src2}`)
+				.bottom-box
+					i.fa.fa-edit
+					i.fa.fa-trash-alt
+					if !v.savefile || !v.savefile2
+						i.fas.fa-ellipsis-h(onclick=`onModal(${v.id});`)
+	include ../include/pager.pug
+	include ../include/modal.pug
+
