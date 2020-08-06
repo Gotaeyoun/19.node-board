@@ -1,12 +1,24 @@
 .modal-wrapper
+	.modal-wing
+		.bt-hide
+			i.fa.fa-arrow-left
+		.tit-wrap
+			div 제목
+			div.title
+		.writer-wrap
+			div 작성자
+			div.writer
+		.content-wrap
+			div 내용
+			div.content
 	.bt-close
 		i.fa.fa-times
 	.modals
 		.modal-head
 			.bt-info
-				i.fa.fa-info-circle
+				i.fa.fa-info-circle(onclick="onDetail();")
 			.bt-download
-				i.fa.fa-download
+				i.fa.fa-download(onclick="onDownload();")
 		.modal-cont
 			img.def-img(src="")
 			img.hover-img(src="")
