@@ -13,7 +13,7 @@ router.get(['/', '/list', '/list/:page'], async (req, res, next) => {
 		sqlVal = [pager.stRec, pager.cnt];
 		result = await connect.execute(sql, sqlVal);
 		connect.release();
-		result[0].forEach((v) =>{
+		result[0].forEach((v) => {
 			v.createdAt = moment(v.createdAt).format('YYYY-MM-DD hh:mm:ss');
 		});
 		jsonResult = { code: 200, pager, lists: result[0] };

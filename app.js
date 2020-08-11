@@ -3,6 +3,8 @@ const express = require('express');
 const app = express();
 const path = require('path');
 require('dotenv').config();
+const session = require('./modules/session-conn');
+
 
 /*************** 내부모듈 *****************/
 const navi = require('./modules/navi-conn');
@@ -12,11 +14,16 @@ const publicPath = path.join(__dirname, './public'); // 'c:\...\public'
 const uploadPath = path.join(__dirname, './storage');
 const viewsPath = path.join(__dirname, './views');
 
+/*************** 세션/쿠키 *****************/
+app.set('trust proxy', 1) // trust first proxy
+app.use(session);
+
+
 /*************** 라우터 *****************/
 const gbookRouter = require('./router/gbook-router');
 const gbookRouterApi = require('./router/gbook-api-router');
 const boardRouter = require('./router/board-router');
-const galleryRouter = require('./router/gallery-router.js');
+const galleryRouter = require('./router/gallery-router');
 const memberRouter = require('./router/member-router');
 
 /*************** 서버실행 *****************/
@@ -30,14 +37,18 @@ app.set('views', viewsPath);
 app.locals.pretty = true;
 app.locals.headTitle = '노드 게시판';
 app.locals.navis = navi;
-
+app.use((req,res,next)=>{
+	app.locals.users = req.session.user ? req.session.user : {};
+	next();
+});
 /***** AJAX/POST 데이터를 json으로 변경 ******/
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
+
 /*************** 라우터 세팅 *****************/
 app.use('/', express.static(publicPath));
-app.use('/upload/', express.static(uploadPath));
+app.use('/upload', express.static(uploadPath));
 app.use('/gbook', gbookRouter);
 app.use('/gbook/api', gbookRouterApi);
 app.use('/board', boardRouter);
