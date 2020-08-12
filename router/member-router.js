@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const { mysqlErr, queryExecute } = require('../modules/mysql-conn');
 const bcrypt = require('bcrypt');
-const { alert } = require('../modules/util');
+const { alert, getIP } = require('../modules/util');
+const { isAdmin, isGuest, isUser } = require('../modules/auth');
 require('dotenv').config();
 
 const pug = { headTitle: "Node/Express 회원관리", css: "member", js: "member" };
@@ -35,21 +36,21 @@ const formChk = (req, res, next) => {
 	else res.send(alert('정상적인 접근이 아닙니다.', '/member/join'));
 }
 
-router.get('/api/idchk', useridChk, async (req, res, next) => {
+router.get('/api/idchk', isGuest, useridChk, async (req, res, next) => {
 	res.json({code: 200, msg: `${req.userid}은(는) 사용 가능합니다.`});
 });
 
-router.get('/join', (req, res, next) => {
+router.get('/join', isGuest, (req, res, next) => {
 	pug.title = "회원가입";
 	res.render('member/member-join.pug', pug);
 });
 
-router.get('/login', (req, res, next) => {
+router.get('/login', isGuest, (req, res, next) => {
 	pug.title = "회원로그인";
 	res.render('member/member-login.pug', pug);
 });
 
-router.post('/save', formChk, async (req, res, next) => {
+router.post('/save', isGuest, formChk, async (req, res, next) => {
 	sql = 'INSERT INTO member SET userid=?, userpw=?, username=?, email=? ';
 	req.userpw = await bcrypt.hash(req.userpw + process.env.SALT, 7);
 	sqlVal = [req.userid, req.userpw, req.username, req.email];
@@ -57,15 +58,23 @@ router.post('/save', formChk, async (req, res, next) => {
 	res.send(alert('회원가입이 완료되었습니다. 로그인 해 주세요.', '/member/login'));
 });
 
-router.post('/sign', async (req, res, next) => {
+router.post('/sign', isGuest, async (req, res, next) => {
 	let { userid, userpw } = req.body;
 	sql = 'SELECT * FROM member WHERE userid=?';
 	result = await queryExecute(sql, [userid]);
 	if(result[0]) {	// 아이디 존재
 		let match = await bcrypt.compare(userpw + process.env.SALT, result[0].userpw);
-		if(match) { 
-			//세션구현
-			req.session.user = {	userid,	username:	result[0].username,email: result[0].email	};
+		if(match) {
+			// 세션구현
+			req.session.user = { 
+				userid, 
+				id: result[0].id,
+				username: result[0].username, 
+				email: result[0].email,
+				grade: result[0].grade 
+			};
+			sql = 'INSERT INTO loginlog SET uid=?, ip=?'; 
+			result = await queryExecute(sql, [result[0].id, getIP(req)]);
 			res.send(alert('로그인 되었습니다', '/'));
 		}
 		else res.send(alert('아이디 또는 패스워드가 올바르지 않습니다.', '/'));
@@ -75,9 +84,9 @@ router.post('/sign', async (req, res, next) => {
 	}
 });
 
-
-router.get('/logout',(req,res,next)=>{
+router.get('/logout', isUser, (req, res, next) => {
 	req.session.destroy();
-	res.send(alert('로그아웃 되었습니다.','/'));
+	res.send(alert('로그아웃 되었습니다.', '/'));
 });
+
 module.exports = router;

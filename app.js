@@ -4,6 +4,7 @@ const app = express();
 const path = require('path');
 require('dotenv').config();
 const session = require('./modules/session-conn');
+const logger = require('./modules/morgan-conn');
 
 
 /*************** 내부모듈 *****************/
@@ -17,7 +18,6 @@ const viewsPath = path.join(__dirname, './views');
 /*************** 세션/쿠키 *****************/
 app.set('trust proxy', 1) // trust first proxy
 app.use(session);
-
 
 /*************** 라우터 *****************/
 const gbookRouter = require('./router/gbook-router');
@@ -37,13 +37,18 @@ app.set('views', viewsPath);
 app.locals.pretty = true;
 app.locals.headTitle = '노드 게시판';
 app.locals.navis = navi;
-app.use((req,res,next)=>{
+app.use((req, res, next) => {
 	app.locals.user = req.session.user ? req.session.user : {};
 	next();
 });
+
 /***** AJAX/POST 데이터를 json으로 변경 ******/
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+
+
+/***** logger(morgan) Init ******/
+app.use(logger);
 
 
 /*************** 라우터 세팅 *****************/

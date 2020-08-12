@@ -89,25 +89,11 @@ function onImgRev(id, n, file) {
 			}
 			else {
 				console.log(r.error);
+				alert('회원만 사용하실 수 있습니다. 로그인 후 이용하세요.');
 			}
 		});
 	}
 }
-
-/*
-$(".wr-wrap .fa-question").mouseenter(function(){
-	$(this).find("span").css("opacity", 1);
-});
-$(".wr-wrap .fa-question").mouseleave(function(){
-	$(this).find("span").css("opacity", 0);
-});
-*/
-
-/* var grid = GridStack.init({
-	animate: true,
-}); */
-
-
 
 function onGallerySubmit(f) {
 	var title = f.title.value.trim();
