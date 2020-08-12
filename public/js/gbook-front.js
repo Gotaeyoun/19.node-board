@@ -1,6 +1,16 @@
 init(1);
 function init(page) {
 	function onResponse(r) {
+		console.log(r.user);
+		if(r.user && r.user.userid) {
+			$(".navi.logout").hide();
+			$(".navi.login").show();
+			$("input[name='writer']").val(r.user.username);
+		}
+		else {
+			$(".navi.logout").show();
+			$(".navi.login").hide();
+		}
 		var $lists = $("tbody.lists"), html = '';
 		if(r.code == 200) {
 			pagerInit(r.pager);
@@ -67,3 +77,4 @@ function onSave() {
 	$("form[name='gbookForm']")[0].reset();
 	$.post('/gbook/api/save', sendData, onResponse);
 }
+
