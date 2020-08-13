@@ -7,14 +7,13 @@
 .wr-wrap textarea[name='content'] {height: 200px;}
 .wr-wrap .wr-bts {padding: 1rem; text-align: center;}
 .wr-wrap .wr-title.def::after {display: inline-block; content: "*"; color: red; font-weight: bold; margin-left: 1rem;}
-.wr-wrap .save-img{padding: 0,5rem; border-bottom: 1px solid #666; margin-bottom: 1rem;}
-.wr-wrap .save-img div{font-weight: bold; padding: 0.5rem 0; display: flex; align-items: center;}
-.wr-wrap .save-img .fa{width: 20px; height: 20px; background-color: #880a0a; color: #f8f8f8; line-height: 20px; text-align: center; margin-left: 0.5rem; cursor: pointer;}
-.wr-wrap .save-img .fa.fa-question{background-color: #0aa0db; position: relative;}
-.wr-wrap .pop-wrap{padding: 0.5rem 0.5rem 0.5rem 1rem; border-radius: 3px; background-color: #444; color: #f8f8f8; position: absolute; margin-left: 1rem; width: 720px; text-align: left; top: -1.5rem; opacity: 0; transition: opacity 0.4s; visibility: hidden;}
-.wr-wrap .pop-wrap::before{display: block; content:""; width: 10px; height: 10px; background-color: #444; position: absolute; left: -5px; top: calc(50% - 5px); transform: rotate(45deg);}
-
-.wr-wrap .save-img .fa.fa.fa-question:hover > .pop-wrap {visibility: visible; opacity: 1;}
+.wr-wrap .save-img {padding: 0.5rem; border-bottom: 1px solid #ccc; margin-bottom: 1rem;}
+.wr-wrap .save-img div {font-weight: bold; padding: 0.5rem 0; display: flex; align-items: center;}
+.wr-wrap .save-img .fa {width: 20px; height: 20px; background-color: #880a0a; color: #f8f8f8;border-radius: 2px; line-height: 20px; text-align: center; margin-left: 0.5rem; cursor: pointer;}
+.wr-wrap .save-img .fa.fa-question {background-color: #0aa0db; position: relative;}
+.wr-wrap .pop-wrap {padding: 0.5rem 0.5rem 0.5rem 1rem; border-radius: 3px; background-color: #444; color: #f8f8f8; position: absolute; margin-left: 1rem; width: 720px; text-align: left; top: -1.5rem; opacity: 0; transition: opacity 0.4s; visibility: hidden;}
+.wr-wrap .pop-wrap::before {display: block; content: ""; width: 10px; height: 10px; background-color: #444; position: absolute; left: -5px; top: calc(50% - 5px); transform: rotate(45deg);}
+.wr-wrap .save-img .fa.fa-question:hover > .pop-wrap {opacity: 1; visibility: visible;}
 
 
 /* .grid-stack-item {width: 20%;} */
@@ -57,11 +56,12 @@ display: none; justify-content: center; align-items: center; top: 0; left: 0; z-
 .modal-wrapper .modal-head > div {width: 50px; height: 50px; background-color: #125d7a; color: #f8f8f8; font-size: 1.5rem; display: flex; justify-content: center; align-items: center; cursor: pointer; margin: 0 2px;}
 .modal-wrapper .bt-def, .modal-wrapper .bt-hover {display: none;}
 
-.modal-wing{width: 20%; min-width: 200px; height: 100vh; background-color: #fff; position: absolute; top: 0; left: 0; z-index: 200; padding: 80px 1rem 1rem 1rem; opacity: 0;transform: translateX(-500px); transition: all 0.5s;}
-.modal-wing .bt-hide{width: 50px; height: 50px; background-color: red; color: #f8f8f8; font-size: 1.5rem; display: flex; justify-content: center; align-items: center; cursor: pointer;position: absolute; top: 0; right: 0;}
-.modal-wing > div:not(:first-child){border-bottom: 1px solid #bbb; margin-bottom: 2rem;}
-.modal-wing	> div:not(:first-child) > :first-child{font-weight: bold; font-size: 1.125rem;}
-.modal-wing	> div:not(:first-child) > :last-child{padding: 1rem;}
+.modal-wing {width: 20%; min-width: 200px; height: 100vh; background-color: #fff; position: absolute; top: 0; left: 0; z-index: 200; padding: 80px 1rem 1rem 1rem; opacity: 0; transform: translateX(-500px); transition: all 0.5s;}
+.modal-wing .bt-hide {width: 50px; height: 50px; background-color: red; color: #f8f8f8; font-size: 1.5rem; display: flex; justify-content: center; align-items: center; cursor: pointer; position: absolute; top: 0; right: 0;}
+.modal-wing > div:not(:first-child) {border-bottom: 1px solid #bbb; margin-bottom: 2rem;}
+.modal-wing > div:not(:first-child) > :first-child {font-weight: bold; font-size: 1.125rem;}
+.modal-wing > div:not(:first-child) > :last-child {padding: 1rem;}
+
 
 
 @media screen and (max-width: 991px) {

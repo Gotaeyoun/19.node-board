@@ -95,6 +95,21 @@ function onImgRev(id, n, file) {
 	}
 }
 
+/*
+$(".wr-wrap .fa-question").mouseenter(function(){
+	$(this).find("span").css("opacity", 1);
+});
+$(".wr-wrap .fa-question").mouseleave(function(){
+	$(this).find("span").css("opacity", 0);
+});
+*/
+
+/* var grid = GridStack.init({
+	animate: true,
+}); */
+
+
+
 function onGallerySubmit(f) {
 	var title = f.title.value.trim();
 	var writer = f.writer.value.trim();

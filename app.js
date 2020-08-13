@@ -2,9 +2,11 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const passport = require('passport');
 require('dotenv').config();
 const session = require('./modules/session-conn');
 const logger = require('./modules/morgan-conn');
+const passportModule = require('./passport/index');
 
 
 /*************** 내부모듈 *****************/
@@ -45,6 +47,12 @@ app.use((req, res, next) => {
 /***** AJAX/POST 데이터를 json으로 변경 ******/
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+
+
+/***** logger(morgan) Init ******/
+passportModule(passport);
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 /***** logger(morgan) Init ******/
