@@ -6,7 +6,7 @@ const passport = require('passport');
 require('dotenv').config();
 const session = require('./modules/session-conn');
 const logger = require('./modules/morgan-conn');
-const passportModule = require('./passport/index');
+const passportModule = require('./passport');
 
 
 /*************** 내부모듈 *****************/
@@ -39,21 +39,22 @@ app.set('views', viewsPath);
 app.locals.pretty = true;
 app.locals.headTitle = '노드 게시판';
 app.locals.navis = navi;
-app.use((req, res, next) => {
-	app.locals.user = req.session.user ? req.session.user : {};
-	next();
-});
+
 
 /***** AJAX/POST 데이터를 json으로 변경 ******/
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
-
 /***** logger(morgan) Init ******/
 passportModule(passport);
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use((req, res, next) => {
+	// app.locals.user = req.session.user ? req.session.user : {}; //session
+	console.log(req.user);
+	app.locals.user = req.user ? req.user : {};
+	next();
+});
 
 /***** logger(morgan) Init ******/
 app.use(logger);
