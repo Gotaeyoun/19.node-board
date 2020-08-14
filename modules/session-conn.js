@@ -12,7 +12,7 @@ const options = {
 const sessionStore = new MySQLStore(options);
 
 const session = expressSession({
-	key: 'Taeyoun-cookie',
+	key: 'booldook-cookie',
 	store: sessionStore,
 	secret: process.env.SESSION_SALT,
 	resave: false,
