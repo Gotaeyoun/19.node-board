@@ -3,12 +3,12 @@ const { queryExecute, mysqlErr } = require('../modules/mysql-conn');
 
 const cb = async (accessToken, refreshToken, profile, done) => {
 	let sql, result;
-	console.log(profile._json.kakao_account.email);
+	// console.log(profile._json.kakao_account.email);
 	let user = {
 		api: profile.provider,
 		id: profile.id,
 		username: profile.username,
-		email: profile._json.kakao_account.email
+		email: profile._json.kakao_account.email ? profile_json.kakao.account.emal : ''
 	};
 	sql = 'SELECT * FROM member WHERE api=? AND userid=?';
 	result = await queryExecute(sql, [user.api, user.id]);

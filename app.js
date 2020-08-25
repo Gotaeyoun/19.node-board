@@ -51,7 +51,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use((req, res, next) => {
 	// app.locals.user = req.session.user ? req.session.user : {}; //session
-	console.log(req.user);
+	// console.log(req.user);
 	app.locals.user = req.user ? req.user : {};
 	next();
 });
