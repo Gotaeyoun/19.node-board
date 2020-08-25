@@ -25,8 +25,10 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app"
+    "test": "node app",
+    "serve": "nodemon app",
+    "start" : "pm2 app.js",
+    "stop"  : "pm2 kill"
   },
   "repository": {
     "type": "git",
